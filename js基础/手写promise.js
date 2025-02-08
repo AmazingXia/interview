@@ -33,6 +33,7 @@ class MyPromise {
   // then 方法用于注册回调
   then(successCb, failCb) {
     return new MyPromise((resolve, reject) => {
+      console.log('哈哈哈哈哈===>', );
       // 当状态已经是 'fulfilled'（成功）时，立即执行成功回调
       if (this.state === 'fulfilled') {
         setTimeout(() => {
@@ -53,13 +54,13 @@ class MyPromise {
           }
         }, 0); // 使用 setTimeout 同样确保是异步执行
       } else if (this.state === 'pending') { // 如果状态是 'pending'（待定），将回调添加到数组中
-        this.resolveCbs.push((value) => {
+        this.resolveCbs.push(() => {
           setTimeout(() => {
             const value = successCb(this.value); // 执行成功回调
             resolve(value); // 返回一个新的 MyPromise，继续链式调用
           }, 0);
         })
-        this.rejectCbs.push((reason) => {
+        this.rejectCbs.push(() => {
           setTimeout(() => {
             const value = failCb(this.reason); // 执行失败回调
             resolve(value); // 返回一个新的 MyPromise，继续链式调用
