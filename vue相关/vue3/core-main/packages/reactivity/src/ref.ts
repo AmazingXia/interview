@@ -128,6 +128,7 @@ class RefImpl<T = any> {
         key: 'value',
       })
     } else {
+      // 访问时触发依赖收集（即“谁用了我，就记下来”）；
       this.dep.track()
     }
     return this._value
