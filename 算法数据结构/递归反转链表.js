@@ -194,6 +194,7 @@ class LinkedList {
     return returnVal
   }
  }
+
  // 查找O(n)
  get(index) {
   if(index < 0 || index >= this.size) {
@@ -205,6 +206,8 @@ class LinkedList {
   }
   return current
  }
+
+//  // 反转链表
  reverse() {
   const reverse = head=>{
     if(head == null || head.next == null) {

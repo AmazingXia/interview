@@ -4,13 +4,43 @@
 
 // 实现方式（HTTP 响应头）：
 
-// Last-Modified & If-Modified-Since
+Last-Modified & If-Modified-Since
 
 // Last-Modified：服务器返回的资源的最后修改时间。
 // If-Modified-Since：浏览器下一次请求时，会带上 Last-Modified 作为 If-Modified-Since，服务器比较该时间是否与资源的最新修改时间一致：
 // 如果一致，返回 304 Not Modified，浏览器使用本地缓存。
 // 如果不一致，返回新的资源，并更新 Last-Modified。
-// ETag & If-None-Match
+const data = fs. readFileSync('./img/03.jpg')
+res. setHeader 'last-modified'
+, mtime.toUTCString())
+res setHeader( 'Cache-Control', 'no-cache')
+res. end (data)
+
+
+
+ETag & If-None-Match
+
+
+const fs = require('fs')
+const etag = require('etag') // 确保已安装：npm install etag
+
+if (pathname === '/img/04.jpg') {
+  const data = fs.readFileSync('./img/04.jpg')
+  const etagContent = etag(data)
+  const ifNoneMatch = req.headers['if-none-match']
+
+  if (ifNoneMatch === etagContent) {
+    res.statusCode = 304
+    res.end()
+    return
+  }
+
+  res.setHeader('Content-Type', 'image/jpeg')
+  res.setHeader('Cache-Control', 'no-cache');  // 开启协商缓存
+  res.setHeader('ETag', etagContent)
+  res.end(data)
+}
+
 
 // ETag 是资源的唯一标识符（哈希值），只要资源变了，ETag 也会变。
 // If-None-Match：浏览器请求时，带上上次的 ETag，服务器对比：
@@ -24,23 +54,22 @@
 // 如果更新了，返回新的资源。
 // 特点：
 
-// 相比强缓存，协商缓存可以保证资源的最新性。
-// 协商缓存仍然需要发送请求，但返回的是 304 Not Modified，不会重新下载资源，减少了流量消耗。
+相比强缓存，协商缓存可以保证资源的最新性。
+协商缓存仍然需要发送请求，但返回的是 304 Not Modified，不会重新下载资源，减少了流量消耗。
 
 
 
 // 4. 实际应用中的缓存策略
-// 对于不常更改的资源（如 logo、字体、CSS、JS）：
+对于不常更改的资源（如 logo、字体、CSS、JS）：
 
-// 使用 强缓存（Cache-Control: max-age=31536000, immutable）。
-// 更新时使用新的 URL（如 logo_v2.png）。
-// 对于可能变化的资源（如 HTML 文件、API 响应）：
+使用 强缓存（Cache-Control: max-age=31536000, immutable）。
+更新时使用新的 URL（如 logo_v2.png）。
+对于可能变化的资源（如 HTML 文件、API 响应）：
 
-// 使用 协商缓存（ETag + Last-Modified）。
-// 避免强缓存导致用户访问的是旧的 HTML 页面。
-// 如果资源需要实时更新（如 API 数据）：
-
-// 直接使用 Cache-Control: no-cache，让浏览器每次都请求服务器。
+使用 协商缓存（ETag + Last-Modified）。
+避免强缓存导致用户访问的是旧的 HTML 页面。
+如果资源需要实时更新（如 API 数据）：
+直接使用 Cache-Control: no-cache，让浏览器每次都请求服务器。
 
 
 
@@ -67,7 +96,7 @@
 // 这样，浏览器就能继续使用本地缓存的 style.css 了！
 
 // 6. 结论
-// 强缓存（Cache-Control: max-age）适用于静态资源，可以避免不必要的请求，提高性能。
-// 协商缓存（ETag / Last-Modified）适用于经常变更但不希望重复下载的资源，可以减少带宽占用。
+强缓存（Cache-Control: max-age）适用于静态资源，可以避免不必要的请求，提高性能。
+协商缓存（ETag / Last-Modified）适用于经常变更但不希望重复下载的资源，可以减少带宽占用。
 // 最佳实践是结合使用两者，优先使用强缓存，失效后进行协商缓存，提高性能的同时保证数据最新性。
 // 这样，你的 Web 应用就能更快、更高效地运行！🚀
