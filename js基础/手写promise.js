@@ -111,3 +111,58 @@ promise.then(
 // 确保 then 中的回调是异步的： 如果直接同步执行回调（不使用 setTimeout），那么 then 中的回调将会立即执行，这就违反了 Promise 的规范，即使 Promise 已经处于 fulfilled 或 rejected 状态时。setTimeout 确保回调是异步的，这与 Promise 的行为一致。
 
 // 模拟 JavaScript 的事件循环： 使用 setTimeout 是为了模拟异步操作的行为，因为 Promise 的核心特性就是异步操作（即使是成功或失败后立刻回调，也需要确保是在微任务队列中执行）。通过将回调推入队列中，可以保证代码的顺序性和异步性。
+
+
+// 静态方法
+// resolve, reject, all,  allSettled, race, any, withResolvers,
+
+
+const { promise, resolve, reject } = Promise.withResolvers();
+
+setTimeout(() => resolve('done'), 1000);
+
+promise.then(console.log); // "done"
+
+
+//静态方法
+function all(promiseArr) {
+  let result = [];
+  //声明一个计数器 每一个promise返回就加一
+  let count = 0;
+  return new Mypromise((resolve, reject) => {
+    for (let i = 0; i < promiseArr.length; i++) {
+    //这里用 Promise.resolve包装一下 防止不是Promise类型传进来
+      Promise.resolve(promiseArr[i]).then(
+        (res) => {
+          //这里不能直接push数组  因为要控制顺序一一对应(感谢评论区指正)
+          result[i] = res;
+          count++;
+          //只有全部的promise执行成功之后才resolve出去
+          if (count === promiseArr.length) {
+            resolve(result);
+          }
+        },
+        (err) => {
+          reject(err);
+        }
+      );
+    }
+  });
+}
+//静态方法
+function race(promiseArr) {
+  return new Mypromise((resolve, reject) => {
+    for (let i = 0; i < promiseArr.length; i++) {
+      Promise.resolve(promiseArr[i]).then(
+        (res) => {
+          //promise数组只要有任何一个promise 状态变更  就可以返回
+          resolve(res);
+        },
+        (err) => {
+          reject(err);
+        }
+      );
+    }
+  });
+}
+
