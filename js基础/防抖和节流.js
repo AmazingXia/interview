@@ -15,6 +15,21 @@
 // 调整窗口大小：当窗口大小调整停止一定时间后，再执行相关处理
 
 
+
+function aa(fn, time) {
+  let timer = null
+  if (timer) clearTimeout(timer);
+
+  timer = setTimeout(() => {
+    fn();
+  }, time);
+}
+// | 问题                         | 原因                      |
+// | -------------------------- | ----------------------- |
+// | `timer` 总是 `null`          | 声明在函数内部，每次调用都重新赋值       |
+// | `clearTimeout(timer)` 不起作用 | 因为没有记录住上一次的 `timer` ID  |
+// | 没有返回一个闭包函数                 | 导致无法在后续调用中共享状态（如 timer） |
+
 function debounce(fn, delay) {
   let timer = null;
 
@@ -25,6 +40,21 @@ function debounce(fn, delay) {
     }, delay);
   };
 }
+
+// args 和 arguments 是什么关系？
+// arguments 在普通函数中，是一个类数组对象，包含调用函数时传入的所有参数。
+// ...args（剩余参数）  是 ES6 的语法糖，可以把所有传入的参数放入一个真正的数组。
+// 在你的 debounce 中用 ...args 是现代写法，比 arguments 更推荐。
+
+function test() {
+  console.log(arguments); // 类数组，类似 [arg1, arg2, ...]
+}
+
+function test(...args) {
+  console.log(args); // 真数组
+}
+
+
 
 // 使用实例
 const handleSearch = debounce(function () {
