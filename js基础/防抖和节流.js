@@ -105,9 +105,8 @@ window.addEventListener('scroll', handleScroll);
 //
 function throttle(func, limit) {
   let inThrottle;
-  return function () {
+  return function (...args) {
     const context = this;
-    const args = arguments;
     if (!inThrottle) {
       func.apply(context, args);
       inThrottle = true;

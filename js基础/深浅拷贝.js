@@ -86,7 +86,11 @@ const obj = {
     city: 'New York',
     country: 'USA'
   },
-  hobbies: ['Reading', 'Traveling']
+  hobbies: ['Reading', 'Traveling'],
+
+  fn: function() {
+    console.log('Hello, ' + this.name);
+  },
 };
 
 const copiedObj = cloneDeep(obj);
