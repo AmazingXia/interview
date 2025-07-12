@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>塌陷</title>
+</head>
+<style>
+  body,
+  html {
+    margin: 0;
+    padding: 0 100px;
+    font-family: Arial, sans-serif;
+  }
+</style>
+
+<body>
+  <h1>margin 塌陷</h1>
+  <h2>一、相邻兄弟元素之间塌陷</h2>
+  <div>
+    <p style="margin-bottom: 20px;">段落1</p>
+    <p style="margin-top: 30px;">段落2</p>
+  </div>
+  <div>
+    段落1的 margin-bottom: 20px <br>
+    段落2的 margin-top: 30px <br>
+    它们之间的垂直间距不是 50px，而是 max(20, 30) = 30px <br>
+  </div>
+
+
+  <h2>二、父子元素之间塌陷</h2>
+  <div style="margin-top: 50px;">
+    <p style="margin-top: 30px;">Hello</p>
+  </div>
+  <div>
+    &lt;div&gt; 和 &lt;p&gt; 都有 margin-top
+    </pre>
+    如果父元素没有内边距、边框或内容，父子间的 margin 会发生塌陷：
+
+    最终外部 margin 是 max(50, 30) = 50px，不是两者之和。
+  </div>
+
+  <h2>三、空块级元素也会发生塌陷</h2>
+  <div style="margin-top: 50px; margin-bottom: 60px;"></div>
+
+
+  <div>
+    <span>
+
+      如果这个 <div> 是空的（无内容、无边框、无 padding），则其上下 margin 也会塌陷。
+
+        即不会有 110px 的空间，而是 60px。
+    </span>
+  </div>
+
+</body>
+
+</html>

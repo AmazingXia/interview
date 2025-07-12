@@ -1,0 +1,6 @@
+.bgBox {
+  width: 240px;
+  height: 310px;
+  border: 1px solid #000;
+  background-image: url('../img/02.react.png');
+}

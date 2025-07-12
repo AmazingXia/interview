@@ -1,0 +1,170 @@
+:root {
+  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, helvetica, arial, sans-serif;
+  --font-serif: "Source Han Serif", georgia, cambria, "Times New Roman", times, serif;
+  --font-mono: "Fira Code", menlo, monaco, consolas, "Liberation Mono", "Courier New", monospace;
+  --body-width: 45em;
+  --body-bg: #f3f2ee;
+  --body-color: #1f0909;
+  --border: #c9cbc6;
+  --block-bg: #edece8;
+  --link-color: #228be6;
+}
+
+body {
+  margin: 0 auto;
+  padding: 3em 2.5em;
+  max-width: var(--body-width);
+  background: var(--body-bg);
+  color: var(--body-color);
+  font-size: 16px;
+  line-height: 1.75;
+  font-weight: 400;
+  font-family: var(--font-serif);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  line-height: 1.2;
+}
+
+h1 {
+  padding-bottom: 0.5em;
+  border-bottom: 1px solid var(--border);
+  font-size: 2.5em;
+}
+
+h2 {
+  font-size: 2em;
+}
+
+h3 {
+  font-size: 1.75em;
+}
+
+h4 {
+  font-size: 1.5em;
+}
+
+h5 {
+  font-size: 1.25em;
+}
+
+h6 {
+  font-size: 1em;
+}
+
+hr {
+  border: 0;
+  height: 1px;
+  background: var(--border);
+}
+
+ul,
+ol {
+  position: relative;
+  padding-left: 2.5em;
+}
+
+li ol > li {
+  list-style-type: lower-alpha;
+}
+
+li li ol > li {
+  list-style-type: lower-roman;
+}
+
+/* li > input[type='checkbox'] {
+  position: absolute;
+  left: 13px;
+} */
+
+table {
+  margin: 1em 0;
+  border-collapse: collapse;
+  overflow: auto;
+  width: 100%;
+}
+
+thead {
+  background: var(--border);
+  text-align: left;
+}
+
+tr:nth-of-type(2n) {
+  background: var(--block-bg);
+}
+
+th,
+td {
+  padding: 0.25em 0.5em;
+}
+
+blockquote {
+  margin: 0;
+  padding: 1em 1.25em;
+  border-left: 5px solid var(--border);
+  background: var(--block-bg);
+}
+
+blockquote > :last-child {
+  margin-bottom: 0;
+}
+
+blockquote > :first-child {
+  margin-top: 0;
+}
+
+blockquote ul,
+blockquote ol {
+  padding-left: 1.5em;
+}
+
+pre {
+  background: var(--block-bg);
+}
+
+code {
+  font-size: 87.5%;
+  font-family: var(--font-mono);
+}
+
+pre code {
+  display: block;
+  padding: 1em 1.25em;
+  overflow: auto;
+}
+
+img {
+  max-width: 100%;
+}
+
+a {
+  color: var(--link-color);
+  text-decoration: none;
+}
+
+a:hover,
+a:active {
+  text-decoration: underline;
+}
+
+.sign {
+  margin: 4em 0 0;
+  padding: 3em 1em;
+  border-top: 1px solid #e0e0e0;
+  font-size: 0.875em;
+  text-align: center;
+  opacity: 0.85;
+}
+
+.sign i {
+  font-style: normal;
+  color: #f00;
+}

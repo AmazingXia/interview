@@ -48,3 +48,11 @@ app.use(cors({
   origin: 'http://frontend.example.com',
   credentials: true
 }));
+
+// 🧪 三、其他特殊跨域通信方式（了解）
+
+1. WebSocket
+不受同源策略限制，一旦连接建立后，前端可以自由通信。
+
+2. 服务器中转（Server-Side Proxy）
+在自己的后端中写接口，转发请求到目标接口。

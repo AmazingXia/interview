@@ -1,0 +1,41 @@
+{
+  "name": "02_webpack_config_start",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --config lg.webpack.js",
+    "serve": "webpack serve --config lg.webpack.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/cli": "^7.14.8",
+    "@babel/core": "^7.15.0",
+    "@babel/plugin-transform-arrow-functions": "^7.14.5",
+    "@babel/plugin-transform-block-scoping": "^7.14.5",
+    "@babel/preset-env": "^7.15.0",
+    "autoprefixer": "^10.3.1",
+    "babel-loader": "^8.2.2",
+    "clean-webpack-plugin": "^4.0.0-alpha.0",
+    "copy-webpack-plugin": "^9.0.1",
+    "css-loader": "^6.2.0",
+    "html-webpack-plugin": "^5.3.2",
+    "less": "^4.1.1",
+    "less-loader": "^10.0.1",
+    "postcss": "^8.3.6",
+    "postcss-cli": "^8.3.1",
+    "postcss-loader": "^6.1.1",
+    "postcss-preset-env": "^6.7.0",
+    "style-loader": "^3.2.1",
+    "webpack": "^5.47.1",
+    "webpack-cli": "^4.7.2",
+    "webpack-dev-server": "^3.11.2"
+  },
+  "dependencies": {
+    "core-js": "^3.16.0",
+    "regenerator-runtime": "^0.13.9"
+  }
+}
